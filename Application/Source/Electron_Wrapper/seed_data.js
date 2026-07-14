@@ -1,8 +1,8 @@
 
-// The rule is:
-// For each group, if all tags are disabled, keep everything
-// If some tags are enabled, keep any food which has one of those tags
-tag_groups = [
+// One time data seeding for the database.
+// Keep as a backup for a while.
+
+const tag_groups = [
   {
     "clara":false
   },
@@ -18,7 +18,7 @@ tag_groups = [
   }
 ]
 
-foods_master_list = [
+const foods_master_list = [
   {
     name: "kula",
     tags: [ "clara", "healthy"],
@@ -502,18 +502,7 @@ foods_master_list = [
 ]
 
 
-
-// houston stuff
-// xinjiang
-
-// temple stuff
-// poke place in temple
-// dead fish grill
-// temple burger place
-// trenos pizza place
-// texas roadhouse
-// meggs
-// good temple mexican place
-// millers
-// place around the corner
-// good temple barbecue place
+module.exports = {
+  tag_groups,
+  foods_master_list
+}

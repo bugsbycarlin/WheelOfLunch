@@ -48,6 +48,33 @@ for (i in letter_array) {
 }
 
 
+// This change to array lets you remove things from an array if they meet a condition
+Object.defineProperty(Array.prototype, "removeIf", {
+    value: function(callback) {
+        let i = this.length;
+        while (i--) {
+            if (callback(this[i], i, this)) {
+                this.splice(i, 1);
+            }
+        }
+    },
+    writable: true,
+    configurable: true,
+    enumerable: false
+});
+
+
+// This change to array returns a shallow copy
+Object.defineProperty(Array.prototype, "copy", {
+    value: function() {
+        return this.slice();
+    },
+    writable: true,
+    configurable: true,
+    enumerable: false
+});
+
+
 // This function picks a random number between 1 and N
 function dice(number) {
   return Math.floor(Math.random() * number) + 1;
@@ -117,6 +144,36 @@ function drawWedge(target,
   }
   target.lineTo(x, y);
   return target;
+}
+
+
+// Mix two RGB colors.
+// amount = 0 returns color_1.
+// amount = 1 returns color_2.
+function mixColors(color_1, color_2, amount) {
+  let r1 = (color_1 >> 16) & 0xFF;
+  let g1 = (color_1 >> 8) & 0xFF;
+  let b1 = color_1 & 0xFF;
+
+  let r2 = (color_2 >> 16) & 0xFF;
+  let g2 = (color_2 >> 8) & 0xFF;
+  let b2 = color_2 & 0xFF;
+
+  let r = Math.round(r1 + (r2 - r1) * amount);
+  let g = Math.round(g1 + (g2 - g1) * amount);
+  let b = Math.round(b1 + (b2 - b1) * amount);
+
+  return (r << 16) | (g << 8) | b;
+}
+
+
+function lightenColor(color, amount) {
+  return mixColors(color, 0xFFFFFF, amount);
+}
+
+
+function darkenColor(color, amount) {
+  return mixColors(color, 0x000000, amount);
 }
 
 

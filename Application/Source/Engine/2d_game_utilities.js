@@ -351,6 +351,278 @@ function makePop(parent, x, y, xScale, yScale) {
 }
 
 
+function makeGoldHub(parent, radius=42, shadow_size=4) {
+  let hub = new PIXI.Container();
+  parent.addChild(hub);
+
+  //
+  // Soft shadow beneath the hub.
+  //
+  let shadow = new PIXI.Graphics()
+    .circle(shadow_size, shadow_size+2, radius + shadow_size)
+    .fill({
+      color: 0x25162D,
+      alpha: 0.55
+    });
+
+  hub.addChild(shadow);
+
+
+  //
+  // Dark bronze outer edge.
+  //
+  let outer_edge = new PIXI.Graphics()
+    .circle(0, 0, radius)
+    .fill(0x8A5912);
+
+  hub.addChild(outer_edge);
+
+
+  //
+  // Bright gold rim.
+  //
+  let outer_gold = new PIXI.Graphics()
+    .circle(0, 0, radius - 4)
+    .fill(0xE4B83E);
+
+  hub.addChild(outer_gold);
+
+
+  //
+  // Darker inner ring gives it a chunky, manufactured shape.
+  //
+  let inner_ring = new PIXI.Graphics()
+    .circle(0, 0, radius - 11)
+    .fill(0xA66D18);
+
+  hub.addChild(inner_ring);
+
+
+  //
+  // Main face.
+  //
+  let face = new PIXI.Graphics()
+    .circle(0, 0, radius - 15)
+    .fill(0xF1C94F);
+
+  hub.addChild(face);
+
+
+  //
+  // Slightly lighter upper-left face, faking rounded lighting.
+  //
+  let face_light = new PIXI.Graphics()
+    .circle(-4, -5, radius - 20)
+    .fill({
+      color: 0xFFE58A,
+      alpha: 0.72
+    });
+
+  hub.addChild(face_light);
+
+
+  //
+  // Main specular highlight.
+  //
+  let highlight = new PIXI.Graphics()
+    .ellipse(-12, -13, 10, 6)
+    .fill({
+      color: 0xFFFFFF,
+      alpha: 0.82
+    });
+
+  highlight.rotation = -0.45;
+  hub.addChild(highlight);
+
+
+  //
+  // A small axle or screw in the center.
+  //
+  let axle = new PIXI.Graphics()
+    .circle(0, 0, 7)
+    .fill(0x6C4311)
+    .circle(-2, -2, 3)
+    .fill({
+      color: 0xFFE9A4,
+      alpha: 0.8
+    });
+
+  hub.addChild(axle);
+
+  return hub;
+}
+
+
+function makeGemstoneHub(parent, color=0xC2476B, radius=42, shadow_size=4) {
+  let hub = new PIXI.Container();
+  parent.addChild(hub);
+
+  let dark_color = darkenColor(color, 0.52);
+  let shadow_color = darkenColor(color, 0.78);
+  let light_color = lightenColor(color, 0.30);
+  let brightest_color = lightenColor(color, 0.58);
+
+  //
+  // Drop shadow.
+  //
+  let shadow = new PIXI.Graphics()
+    .circle(shadow_size, shadow_size+2, radius + shadow_size)
+    .fill({
+      color: 0x211529,
+      alpha: 0.6
+    });
+
+  hub.addChild(shadow);
+
+
+  //
+  // Gold fitting around the gemstone.
+  //
+  let gold_backing = new PIXI.Graphics()
+    .circle(0, 0, radius)
+    .fill(0x8A5912);
+
+  hub.addChild(gold_backing);
+
+  let gold_rim = new PIXI.Graphics()
+    .circle(0, 0, radius - 4)
+    .fill(0xE4B83E);
+
+  hub.addChild(gold_rim);
+
+
+  //
+  // Dark bezel inside the gold.
+  //
+  let dark_bezel = new PIXI.Graphics()
+    .circle(0, 0, radius - 10)
+    .fill(shadow_color);
+
+  hub.addChild(dark_bezel);
+
+
+  //
+  // Main gemstone body.
+  //
+  let gem = new PIXI.Graphics()
+    .circle(0, 0, radius - 14)
+    .fill(color);
+
+  hub.addChild(gem);
+
+
+  //
+  // Offset inner colors make the gem feel rounded.
+  //
+  let lower_shadow = new PIXI.Graphics()
+    .ellipse(4, 7, radius - 19, radius - 22)
+    .fill({
+      color: dark_color,
+      alpha: 0.62
+    });
+
+  hub.addChild(lower_shadow);
+
+  let upper_glow = new PIXI.Graphics()
+    .ellipse(-5, -7, radius - 21, radius - 24)
+    .fill({
+      color: light_color,
+      alpha: 0.72
+    });
+
+  hub.addChild(upper_glow);
+
+
+  //
+  // Small hard highlights.
+  //
+  let highlight_1 = new PIXI.Graphics()
+    .ellipse(-12, -14, 10, 6)
+    .fill({
+      color: 0xFFFFFF,
+      alpha: 0.88
+    });
+
+  highlight_1.rotation = -0.5;
+  hub.addChild(highlight_1);
+
+  let highlight_2 = new PIXI.Graphics()
+    .circle(11, 10, 3)
+    .fill({
+      color: brightest_color,
+      alpha: 0.75
+    });
+
+  hub.addChild(highlight_2);
+
+  return hub;
+}
+
+
+function makeWheelGloss(parent, radius=300) {
+  let gloss = new PIXI.Container();
+  parent.addChild(gloss);
+
+  //
+  // A broad reflection across the upper-left portion of the wheel.
+  //
+  let large_highlight = new PIXI.Graphics()
+    .ellipse(
+      -62,
+      -120,
+      radius * 0.86,
+      radius * 0.34
+    )
+    .fill({
+      color: 0xFFFFFF,
+      alpha: 0.105
+    });
+
+  large_highlight.rotation = -0.20;
+  gloss.addChild(large_highlight);
+
+
+  //
+  // A narrower, brighter streak within the broad reflection.
+  //
+  let bright_streak = new PIXI.Graphics()
+    .ellipse(
+      -92,
+      -153,
+      radius * 0.55,
+      radius * 0.095
+    )
+    .fill({
+      color: 0xFFFFFF,
+      alpha: 0.115
+    });
+
+  bright_streak.rotation = -0.20;
+  gloss.addChild(bright_streak);
+
+
+  //
+  // Clip both ellipses to the wheel's circular face.
+  //
+  let mask = new PIXI.Graphics()
+    .circle(0, 0, radius - 10)
+    .fill(0xFFFFFF);
+
+  parent.addChild(mask);
+
+  gloss.mask = mask;
+
+  //
+  // The mask participates in rendering but should not be drawn itself.
+  //
+  mask.renderable = false;
+
+  gloss.wheel_mask = mask;
+
+  return gloss;
+}
+
+
 function makePixelatedLetterTile(parent, text, color) {
   return makeSprite("Art/PixelatedKeys/pixelated_" + color + "_" + text + ".png", parent, 0, 0, 0.5, 0.5);
 }

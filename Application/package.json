@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build-application": "electron-builder -m"
+    "build-application": "electron-builder -m",
+    "rebuild-native": "electron-rebuild -f -w better-sqlite3"
   },
   "author": "AlphaZoo",
   "license": "MIT",
@@ -14,7 +15,7 @@
     "electron": "^18.3.15",
     "electron-builder": "^23.0.3",
     "electron-notarize": "^1.1.1",
-    "electron-settings": "^4.0.2",
+    "electron-rebuild": "^3.2.9",
     "electron-settings": "^4.0.2",
     "fontfaceobserver": "^2.3.0",
     "node-cmd": "^5.0.0",
@@ -52,6 +53,7 @@
     }
   },
   "dependencies": {
+    "better-sqlite3": "^8.7.0",
     "builder-util": "^24.9.4",
     "electron-settings": "^4.0.2",
     "fontfaceobserver": "^2.3.0"

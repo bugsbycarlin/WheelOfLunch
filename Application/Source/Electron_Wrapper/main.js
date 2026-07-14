@@ -2,7 +2,7 @@
 // This file contains the main entry point electron uses to run the program.
 // It follows this format: https://www.electronjs.org/docs/tutorial/quick-start
 //
-// Copyright 2022 Alpha Zoo LLC.
+// Copyright 2026 Alpha Zoo LLC.
 // Written by Matthew Carlin
 //
 
@@ -11,6 +11,7 @@
 const { app, ipcMain, BrowserWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const database = require('./database');
 const settings = require('electron-settings');
 
 function createWindow () {
@@ -63,6 +64,11 @@ app.on('window-all-closed', function () {
   // if (process.platform !=== 'darwin') app.quit()
   app.quit();
 })
+
+// Get the food data from the food database
+ipcMain.on('get-food-data', (event) => {
+  event.returnValue = database.getFoodData();
+});
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

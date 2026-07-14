@@ -1,7 +1,7 @@
 //
 // This file contains the root "game" class for Follow Through. This is the starting point.
 //
-// Copyright 2023 Alpha Zoo LLC.
+// Copyright 2026 Alpha Zoo LLC.
 // Written by Matthew Carlin
 //
 
@@ -10,9 +10,9 @@
 var log_performance = true;
 var performance_result = null;
 
-var first_screen = "display";
+var first_screen = "title_screen";
 
-var subgames = ["display"];
+var subgames = ["wheel", "title_screen"];
 
 var pixi = null;
 var game = null;
@@ -162,27 +162,22 @@ class Game {
   preloadAnimations(and_then) {
     let Assets = PIXI.Assets;
 
-    // Pastel Buttons for Follow Through come from
-    // https://villaniouscat.itch.io/pastelpixelbuttons/
-    Assets.add({ alias: "vanna", src: "Art/vanna.png" });
+    // Assets.add({ alias: "vanna", src: "Art/vanna.png" });
+    Assets.add({ alias: "wheel_background_adjusted", src: "Art/wheel_background_adjusted.png" });
     Assets.add({ alias: "empty_yellow_frame", src: "Art/empty_yellow_frame.png" });
     Assets.add({ alias: "Wonderbar.otf", src:"Wonderbar.otf", data: { scaleMode: PIXI.SCALE_MODES.NEAREST }});
+    Assets.add({ alias: "title_screen", src: "Art/title_screen.png" });
+    Assets.add({ alias: "play_button", src: "Art/play_button.png" });
+    Assets.add({ alias: "setup_button", src: "Art/setup_button.png" });
 
-
-    // Assets.add({ alias: "button_e", src: "Art/button_e.png" });
-    // Assets.add({ alias: "trash", src: "Art/trash.png" });
-    // Assets.add({ alias: "gear", src: "Art/gear.png" });
-    // Assets.add({ alias: "x_mark", src: "Art/x_mark.png" });
-    // Assets.add({ alias: "check_mark", src: "Art/check_mark.png" });
-    // Assets.add({ alias: "left_button", src: "Art/left_button.png" });
-    // Assets.add({ alias: "right_button", src: "Art/right_button.png" });
-    // Assets.add({ alias: "BitOperator.ttf", src:"BitOperator.ttf", data: { scaleMode: PIXI.SCALE_MODES.NEAREST }});
-    
-
-    const assetsPromise = Assets.load(
-      ["vanna", "empty_yellow_frame",
-       "Wonderbar.otf",]
-    );
+    const assetsPromise = Assets.load([
+      "wheel_background_adjusted",
+      "empty_yellow_frame",
+      "Wonderbar.otf",
+      "play_button",
+      "setup_button",
+      "title_screen"
+    ]);
     assetsPromise.then((assets) => {
       console.log("the assets");
       console.log(assets);

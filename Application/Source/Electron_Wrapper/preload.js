@@ -7,3 +7,8 @@
 //
 
 const { ipcRenderer } = require('electron')
+
+
+window.getFoodData = function() {
+  return ipcRenderer.sendSync('get-food-data');
+}

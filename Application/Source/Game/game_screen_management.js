@@ -6,7 +6,7 @@
 // There's a method to initialize, and methods to handle
 // several different types of transitions.
 //
-// Copyright 2022 Alpha Zoo LLC.
+// Copyright 2026 Alpha Zoo LLC.
 // Written by Matthew Carlin
 //
 
@@ -36,8 +36,10 @@ class Screen extends PIXI.Container {
 
 
 Game.prototype.createScreen = function(screen_name, extra_param = null, reset = false) {
-  if (screen_name == "display") {
-    this.screens["display"] = new Display(this.width, this.height);
+  if (screen_name == "wheel") {
+    this.screens["wheel"] = new Wheel(this.width, this.height);
+  } else if (screen_name == "title_screen") {
+    this.screens["title_screen"] = new TitleScreen(this.width, this.height);
   }
 
   console.log(screen_name);
@@ -64,6 +66,7 @@ Game.prototype.initializeScreens = function() {
 
 // Slide the old screen off to the side, and slide the new one into place.
 Game.prototype.switchScreens = function(old_screen, new_screen) {
+  console.log("THIS SWITCH HAPPENED ONCE");
   var direction = -1;
   if (new_screen == "title") direction = 1;
   this.screens[new_screen].position.x = direction * -1 * this.width;

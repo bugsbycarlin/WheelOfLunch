@@ -27,6 +27,7 @@ let old_music = null;
 let sound_files = [
   ["tick", "tick.wav"],
   ["ding", "ding.wav"],
+  ["pop", "pop.wav"],
 ]
 
 
